@@ -2,13 +2,14 @@
     #include <cmath>
     #include <iomanip>
     using namespace std;
-
+// Define the function f(x) = e^x - 3x
     double f(double x) {
         return exp(x) - 3*x;
     }
 
     int main() {
         double x1, x2, tol;
+        cout<<"enter guese-1 gause-2 and error-tolerance: ";
         cin >> x1 >> x2 >> tol;
 
         if (f(x1) * f(x2) > 0) {
@@ -30,11 +31,18 @@
               << setw(12) << "f(x2)"
              << setw(16) << "Relative Error" << endl;
 
+
+             /*
+modified-false postion methode Formula:
+x_new = (x1*f2 - x2*f1) / (f2 - f1);
+Stopping criteria: |x_new - x_old| < tolerance
+*/
+
         while (true) {
-            double x_new = (x1*f2 - x2*f1) / (f2 - f1);
+            double x_new = (x1*f2 - x2*f1) / (f2 - f1); //modified false postion formula.
             f0 = f(x_new);
 
-            double rel_error = fabs(x_new - x0) / fabs(x_new);
+            double rel_error = fabs(x_new - x0) / fabs(x_new); 
 
             cout << left << setw(6) << iter
                  << setw(12) << x1
@@ -52,7 +60,7 @@
 
             if (f1 * f0 < 0) {
                 x2 = x_new;
-                f2 = f0 / 2;   // your original update
+                f2 = f0 / 2;   // update
             } else {
                 x1 = x_new;
                 f1 = f0 / 2;
